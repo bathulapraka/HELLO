@@ -1,13 +1,11 @@
-// ExpenseForm.js
 import React from "react";
-import ExpenseUser from "./Expenseuserdetails"; // Correct import path and filename
+import ExpenseUser from "./Expenseuserdetails";
 
 const ExpenseForm = () => {
   return (
     <div className="expense-form">
-      <ExpenseUser />
+      <ExpenseUser/>
     </div>
   );
 };
-
 export default ExpenseForm;
