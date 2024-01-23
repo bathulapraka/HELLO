@@ -1,8 +1,8 @@
-
-import React from "react";
+import React, { useState } from "react";
 import ExpenseItem from "./ExpenseItem";
-import Expenseform from "./ExpenseForm";
-
+import ExpenseForm from "./ExpenseForm";
+import ExpenseFilter from "./ExpenseFilter";
+import OtherComponent from "./OtherComponent";
 
 const App = () => {
   const expenses = [
@@ -25,18 +25,30 @@ const App = () => {
       date: new Date(2010, 3, 19),
     },
   ];
+
+  const [selectedYear, setSelectedYear] = useState("2020");
+
+  const filterChangeHandler = (selectedYear) => {
+    setSelectedYear(selectedYear);
+  };
+
   return (
     <div>
-         <Expenseform/>
+      <ExpenseFilter
+        selected={selectedYear}
+        onChangeFilter={filterChangeHandler}
+      />
+      <ExpenseForm />
+
       {expenses.map((expense) => (
         <ExpenseItem
           key={expense.id}
           title={expense.title}
           amount={expense.amount}
           date={expense.date}
-        />  
+        />
       ))}
-   
+      <OtherComponent selectedYear={selectedYear} />
     </div>
   );
 };

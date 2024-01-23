@@ -1,35 +1,40 @@
-import React from "react";
-import { useState } from "react";
 
-const ExpenseUser = () => {
+import React,{ useState } from "react";
+
+
+const ExpenseUser = (props) => {
   const [enteredtitle, setTtle] = useState("");
   const [enterAmount, setAmount] = useState("");
   const [enterDate, setDate] = useState("");
 
   const settitleoftheuser = (event) => {
     setTtle(event.target.value);
-    console.log(enteredtitle);
   };
   const setAmountoftheuser = (event) => {
     setAmount(event.target.value);
-    console.log(enterAmount);
   };
   const setDateoftheuser = (event) => {
     setDate(event.target.value);
-    console.log(enterDate);
   };
-  const submithandle = () => {
-  
-    console.log(enteredtitle);
-    console.log(enterAmount);
-    console.log(enterDate);
+  const submithandle = (event) => {
+    event.preventDefault();
+
+    const expensealldate = {
+      title: enteredtitle,
+      amount: enterAmount,
+      date: new Date(enterDate),
+    };
+    props.onSaveExpensedata(expensealldate);
+    setTtle("");
+    setAmount("");
+    setDate("");
   };
   return (
-    <form>
+    <form onSubmit={submithandle}>
       <div className="all-details">
         <div className="sub-details">
           <label>Title</label>
-          <input type="text" onChange={settitleoftheuser} />
+          <input type="text" value={enteredtitle} onChange={settitleoftheuser} />
         </div>
         <div className="sub-details">
           <label>Amount</label>
@@ -37,6 +42,7 @@ const ExpenseUser = () => {
             type="number"
             min="0.002"
             max="0.004"
+            value={enterAmount}
             onChange={setAmountoftheuser}
           />
         </div>
@@ -46,11 +52,14 @@ const ExpenseUser = () => {
             type="date"
             min="2010-9-10"
             max="2015-6-8"
+            value={enterDate}
             onChange={setDateoftheuser}
           />
         </div>
       </div>
-      <button onClick={submithandle}>Submit</button>
+      <button type="submit" onChange={submithandle}>
+        Submit
+      </button>
     </form>
   );
 };
